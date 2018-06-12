@@ -1,3 +1,8 @@
+<!--
+  クエリパラメータがある場合ページ内スクロールがうまく動作しないため
+  各hrefに index.html を付与している
+-->
+
 {{!--
   Renders the sidebar navigation
   @param {object} $context$ the whole swagger definition
@@ -6,18 +11,18 @@
 <nav id="nav" role="navigation">
   <h5>Topics</h5>
   {{#unless info.x-spectacle-hide}}
-    <a href="#introduction">Introduction</a>
+    <a href="index.html#introduction">Introduction</a>
   {{/unless}}
 
   {{#if securityDefinitions}}
    {{#unless securityDefinitions.x-spectacle-hide}}
-     <a href="#authentication">Authentication</a>
+     <a href="index.html#authentication">Authentication</a>
    {{/unless}}
   {{/if}}
 
   {{#if x-spectacle-topics}}
     {{#each x-spectacle-topics}}
-      <a href="#topic-{{htmlId @key}}">{{@key}}</a>
+      <a href="index.html#topic-{{htmlId @key}}">{{@key}}</a>
     {{/each}}
   {{/if}}
 
@@ -25,16 +30,19 @@
     <h5>Operations</h5>
     {{#each tags}}
       <section>
-        <a href="#tag-{{htmlId name}}">{{name}}</a>
+        <a href="index.html#tag-{{htmlId name}}">{{name}}</a>
         <ul>
           {{#each operations}}
             <li>
-              <a href="#operation-{{htmlId path}}-{{htmlId method}}">
+              <a href="index.html#operation-{{htmlId path}}-{{htmlId method}}">
+                {{toUpperCase method}} {{path}}
+                <!--
                 {{#if summary}}
                   {{summary}}
                 {{else}}
                   {{toUpperCase method}} {{path}}
                 {{/if}}
+                -->
               </a>
             </li>
           {{/each}}
@@ -45,16 +53,19 @@
     <h5>Paths</h5>
     {{#each paths}}
       <!-- <section>
-        <a href="#path-{{htmlId @key}}">{{@key}}</a>
+        <a href="index.html#path-{{htmlId @key}}">{{@key}}</a>
         <ul> -->
           {{#each .}}
             <!-- <li> -->
-              <a href="#operation-{{htmlId path}}-{{htmlId method}}">
+              <a href="index.html#operation-{{htmlId path}}-{{htmlId method}}" target="_self">
+                {{toUpperCase method}} {{path}}
+                <!--
                 {{#if summary}}
                   {{summary}}
                 {{else}}
                   {{toUpperCase method}} {{path}}
                 {{/if}}
+                -->
               </a>
             <!-- </li> -->
           {{/each}}
@@ -68,7 +79,7 @@
 
   <h5>Schema Definitions</h5>
   {{#each definitions}}
-    <a href="#definition-{{htmlId @key}}">
+    <a href="index.html#definition-{{htmlId @key}}">
       {{@key}}
     </a>
   {{/each}}
